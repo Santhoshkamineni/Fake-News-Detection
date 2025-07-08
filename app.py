@@ -7,12 +7,17 @@ st.title("📰 Fake News Detection")
 st.subheader("Enter a news article below to check if it is FAKE or REAL")
 
 @st.cache_resource
+@st.cache_resource
 def load_model():
-    dataset_url = "https://raw.githubusercontent.com/GeorgeMcIntire/fake_real_news_dataset/main/fake_and_real_news_dataset.csv"
-    data = pd.read_csv(dataset_url, on_bad_lines='skip', encoding='latin1')
+    url = "https://raw.githubusercontent.com/dhaminikaveti/datasets/main/fake_and_real_news_dataset.csv"
+    df = pd.read_csv(url)
 
-    x = data['text']
-    y = data['label']
+    # Ensure labels are either FAKE or REAL
+    df = df[["text", "label"]].dropna()
+    df["label"] = df["label"].str.upper()
+
+    x = df['text']
+    y = df['label']
 
     tfidf = TfidfVectorizer(stop_words='english', max_df=0.7)
     x_vectorized = tfidf.fit_transform(x)
@@ -21,6 +26,7 @@ def load_model():
     model.fit(x_vectorized, y)
 
     return tfidf, model
+
 
 # Load model and vectorizer
 tfidf, model = load_model()
