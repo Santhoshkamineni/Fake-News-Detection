@@ -1,0 +1,7 @@
+title,text,subject,date,label
+Fake News 1,Aliens landed in my backyard yesterday.,News,2020-01-01,FAKE
+Fake News 2,Scientists discovered a way to turn water into fuel overnight.,Science,2020-02-01,FAKE
+Fake News 3,The earth is flat and NASA is hiding the truth.,Conspiracy,2020-03-01,FAKE
+Real News 1,The president gave a speech on national television.,Politics,2020-01-15,REAL
+Real News 2,Local elections concluded peacefully this evening.,Local,2020-02-15,REAL
+Real News 3,NASA launched a new satellite into orbit last week.,Science,2020-03-15,REAL
