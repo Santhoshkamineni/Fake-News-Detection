@@ -9,38 +9,40 @@ st.title("📰 Fake News Detection")
 st.subheader("Enter a news article below to check if it is FAKE or REAL")
 
 @st.cache_resource
+@st.cache_resource
 def load_model():
-    # Download dataset from GitHub
-    url = "https://raw.githubusercontent.com/dhaminikaveti/fake-news/main/fake_true.csv"
+    import requests
+    from io import StringIO
 
+    url = "https://raw.githubusercontent.com/dhaminikaveti/fake-news/main/fake_true.csv"
     response = requests.get(url)
 
-    # Check if download worked
     if response.status_code != 200:
         st.error("❌ Failed to load dataset. HTTP Error.")
         return None, None
 
-    # Convert CSV to DataFrame
     data = StringIO(response.text)
     df = pd.read_csv(data)
 
-    # Prepare text and label columns
+    # Make sure it has 'text' and 'label' columns
+    if 'text' not in df.columns or 'label' not in df.columns:
+        st.error("❌ Dataset must contain 'text' and 'label' columns.")
+        return None, None
+
     df = df[["text", "label"]].dropna()
     df["label"] = df["label"].str.upper()
 
-    # Features and labels
     x = df["text"]
     y = df["label"]
 
-    # Text vectorization
     tfidf = TfidfVectorizer(stop_words="english", max_df=0.7)
     x_vectorized = tfidf.fit_transform(x)
 
-    # Train model
     model = PassiveAggressiveClassifier()
     model.fit(x_vectorized, y)
 
     return tfidf, model
+
 
 # Load the model and vectorizer
 tfidf, model = load_model()
