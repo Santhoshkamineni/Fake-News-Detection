@@ -11,7 +11,8 @@ st.subheader("Enter a news article below to check if it is FAKE or REAL")
 @st.cache_resource
 def load_model():
     # Download dataset from GitHub
-    url = "https://raw.githubusercontent.com/dhaminikaveti/datasets/main/fake_and_real_news_dataset.csv"
+    url = url = "https://raw.githubusercontent.com/dhaminikaveti/fake-news/main/fake_true.csv"
+
     response = requests.get(url)
 
     # Check if download worked
