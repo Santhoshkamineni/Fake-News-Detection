@@ -10,7 +10,8 @@ st.subheader("Enter a news article below to check if it is FAKE or REAL")
 
 @st.cache_resource
 def load_model():
-    url = "https://raw.githubusercontent.com/dhaminikaveti/fake-news/main/fake_true.csv"
+    url = "https://raw.githubusercontent.com/Santhoshkamineni/Fake-News-Detection/main/fake_true.csv"
+"
     response = requests.get(url)
 
     if response.status_code != 200:
